@@ -8,6 +8,11 @@ node_modules/
 dist/
 web-build/
 expo-env.d.ts
+env.d.ts
+
+# local env files
+.env
+.env*.local
 
 # Native
 .kotlin/

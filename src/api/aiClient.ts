@@ -1,63 +1,51 @@
 import axios from "axios";
+import { buildPrompt } from "../utils/promptBuilder";
+import { Product, Recommendation } from "../types";
+import { GEMINI_API_KEY } from '@env';
 
-export interface Recommendation {
-  product_name: string;
-  brand: string;
-  price: number;
-  category: string;
-  why: string;
-}
 
-export interface Product {
-  brand: string;
-  product_name: string;
-  price: number;
-  category: string;
-  description: string;
-}
 
-const LLM_API_ENDPOINT = "https://gpt4free-api.com/v1/chat/completions";
+const API_ENDPOINT =
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
 export const fetchRecommendations = async (
   userQuery: string,
   productCatalog: Product[]
 ): Promise<Recommendation[]> => {
-  const prompt = `
-User request: "${userQuery}"
-Catalog: ${JSON.stringify(productCatalog, null, 2)}
-
-Return top 3 products in this JSON array format:
-[
-  { "product_name": "...", "brand": "...", "price": ..., "category": "...", "why": "..." }
-]
-`;
-
+  // Construct prompt string with user query and catalog
+  const prompt = buildPrompt(userQuery, productCatalog);
   const payload = {
-    model: "gpt-4o-mini", // keep it simple
-    messages: [
-      { role: "system", content: "You are a helpful AI product advisor." },
-      { role: "user", content: prompt },
+    contents: [
+      {
+        parts: [{ text: prompt }],
+      },
     ],
-    temperature: 0.7,
-    max_tokens: 500,
   };
-  console.log(payload, "payload");
-  
 
   try {
-    const response = await axios.post(LLM_API_ENDPOINT, payload, {
-      headers: { "Content-Type": "application/json" },
+    const response = await axios.post(API_ENDPOINT, payload, {
+      headers: {
+        "Content-Type": "application/json",
+        "X-Goog-Api-Key": GEMINI_API_KEY,
+      },
     });
 
-    console.log("LLM raw response:", response);
+    const rawText =
+      response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
-    // const textResponse = data?.choices?.[0]?.message?.content;
-    // if (!textResponse) {
-    //   console.error("No content found in LLM response");
-    //   return [];
-    // }
+    if (!rawText) return [];
 
-    // return JSON.parse(textResponse) as Recommendation[];
+    try {
+      // Extract JSON from markdown code block
+      const jsonMatch = rawText.match(/```json\n([\s\S]*?)\n```/);
+      const jsonString = jsonMatch ? jsonMatch[1] : rawText;
+
+      const recommendations: Recommendation[] = JSON.parse(jsonString);
+      return recommendations;
+    } catch (err) {
+      console.error("Failed to parse AI response as JSON:", rawText, err);
+      return [];
+    }
   } catch (err) {
     console.error("Error fetching recommendations:", err);
     return [];

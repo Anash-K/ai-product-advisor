@@ -1,22 +1,19 @@
 import { Product } from "../data/productCatalog";
 
-export const buildPrompt = (userQuery: string, catalog: Product[]): string => `
-You are an AI Product Advisor. A user has given this request: "${userQuery}".
+export const buildPrompt = (
+  userQuery: string,
+  productCatalog: Product[]
+): string => `You are an AI product advisor.
+User query: "${userQuery}"
 
-Your task:
-1. Compare their needs with this product catalog:
-${JSON.stringify(catalog, null, 2)}
+Here is the product catalog:
+${JSON.stringify(productCatalog, null, 2)}
 
-2. Pick the top 3 most suitable products.
-3. For each product, explain in 2-3 sentences why it meets the user’s needs.
-4. Respond strictly in JSON format as:
-[
-  {
-    "product_name": "...",
-    "brand": "...",
-    "price": ...,
-    "category": "...",
-    "why": "reason the product matches request"
-  }
-]
-`;
+Please identify the top 3 products matching the request, and for each product provide:
+- product_name
+- brand
+- price
+- category
+- why (a short explanation of why it matches)
+
+Return only a JSON array of products without any additional formatting or text.`;

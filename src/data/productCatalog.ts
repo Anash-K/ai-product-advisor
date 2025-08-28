@@ -1,10 +1,4 @@
-export interface Product {
-  brand: string;
-  product_name: string;
-  price: number;
-  category: string;
-  description: string;
-}
+import { Product } from "../types";
 
 export const productCatalog: Product[] = [
     {
