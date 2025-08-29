@@ -88,11 +88,12 @@ Followed a minimal, modern UI with proper error handling (NoDataCard), loading s
 ✅ Why: Enhances trust and usability, ensuring a smooth user journey even with errors or slow network.
 
 ## 📂 Project Structure
+```bash
 my-ai-product-advisor/
-│── App.tsx # Entry point of the app
+1. │── App.tsx # Entry point of the app
 │
-└── src/
-├── api/ # API layer
+2. └── src/
+3. ├── api/ # API layer
 │ └── apiClient.ts
 │
 ├── constants/ # App-wide constants
