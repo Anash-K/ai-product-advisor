@@ -107,6 +107,9 @@ export const HomeScreen: React.FC<ScreenProps<"Home">> = ({ navigation }) => {
     </Animated.View>
   );
 
+  console.log(JSON.stringify(data,null,2),"response of query");
+  
+
   return (
     <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
