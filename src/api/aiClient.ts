@@ -1,9 +1,7 @@
 import axios from "axios";
 import { buildPrompt } from "../utils/promptBuilder";
 import { Product, Recommendation } from "../types";
-import { GEMINI_API_KEY } from '@env';
-
-
+// import { GEMINI_API_KEY } from '@env';
 
 const API_ENDPOINT =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
@@ -26,7 +24,7 @@ export const fetchRecommendations = async (
     const response = await axios.post(API_ENDPOINT, payload, {
       headers: {
         "Content-Type": "application/json",
-        "X-Goog-Api-Key": GEMINI_API_KEY,
+        "X-Goog-Api-Key": "AIzaSyBxd5S7d_gZOt9QnBjRyPV2s7bybXMMVOc",
       },
     });
 

@@ -3,6 +3,7 @@ export interface Recommendation {
   brand: string;
   price: number;
   category: string;
+  description: string;
   why: string;
 }
 

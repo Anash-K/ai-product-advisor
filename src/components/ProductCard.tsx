@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect, memo } from "react";
 import {
   View,
   Text,
@@ -6,16 +6,33 @@ import {
   Animated,
   TouchableOpacity,
 } from "react-native";
-import { Recommendation } from "../api/aiClient";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { Recommendation } from "../types";
+import { Colors } from "../constants/Color";
+
 interface ProductCardProps {
   product: Recommendation;
   index: number;
+  onShowDetails: (product: Recommendation) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
-  const fadeAnim = new Animated.Value(0);
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  index,
+  onShowDetails,
+}) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      delay: index * 100,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim, index]);
+
   return (
     <Animated.View
       style={[
@@ -34,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
       ]}
     >
       <LinearGradient
-        colors={["#6A11CB", "#2575FC"]}
+        colors={[Colors.primary, "#2575FC"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
         style={styles.cardHeader}
@@ -46,7 +63,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
         <Text style={styles.title}>{product.product_name}</Text>
         <View style={styles.brandPriceContainer}>
           <View style={styles.brandContainer}>
-            <Icon name="business" size={16} color="#6A11CB" />
+            <Icon name="business" size={16} color={Colors.primary} />
             <Text style={styles.brand}>{product.brand}</Text>
           </View>
           <Text style={styles.price}>₹{product.price.toLocaleString()}</Text>
@@ -58,9 +75,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.actionButton}>
+      <TouchableOpacity
+        style={styles.actionButton}
+        onPress={() => onShowDetails(product)}
+      >
         <Text style={styles.actionButtonText}>View Details</Text>
-        <Icon name="arrow-forward" size={16} color="#fff" />
+        <Icon name="arrow-forward" size={16} color={Colors.white} />
       </TouchableOpacity>
     </Animated.View>
   );
@@ -68,36 +88,23 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     borderRadius: 16,
     marginBottom: 16,
     overflow: "hidden",
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 5,
   },
-
-  cardHeader: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-  },
-  category: {
-    color: "#fff",
-    fontSize: 12,
-    fontWeight: "600",
-  },
-  cardContent: {
-    padding: 16,
-  },
+  cardHeader: { paddingVertical: 8, paddingHorizontal: 16 },
+  category: { color: Colors.white, fontSize: 12, fontWeight: "600" },
+  cardContent: { padding: 16 },
   title: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#2D3436",
+    color: Colors.textPrimary,
     marginBottom: 12,
   },
   brandPriceContainer: {
@@ -106,29 +113,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 16,
   },
-  brandContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
+  brandContainer: { flexDirection: "row", alignItems: "center" },
   brand: {
     fontSize: 14,
-    color: "#6A11CB",
+    color: Colors.primary,
     fontWeight: "600",
     marginLeft: 6,
   },
-  price: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#6A11CB",
-  },
-  whyContainer: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-  },
+  price: { fontSize: 18, fontWeight: "bold", color: Colors.primary },
+  whyContainer: { flexDirection: "row", alignItems: "flex-start" },
   why: {
     flex: 1,
     fontSize: 14,
-    color: "#636E72",
+    color: Colors.textSecondary,
     marginLeft: 8,
     fontStyle: "italic",
     lineHeight: 20,
@@ -137,16 +134,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#6A11CB",
+    backgroundColor: Colors.primary,
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
   actionButtonText: {
-    color: "#fff",
+    color: Colors.white,
     fontSize: 14,
     fontWeight: "600",
     marginRight: 8,
   },
 });
 
-export default ProductCard;
+export default memo(ProductCard);
