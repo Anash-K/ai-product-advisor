@@ -87,6 +87,25 @@ Followed a minimal, modern UI with proper error handling (NoDataCard), loading s
 
 ✅ Why: Enhances trust and usability, ensuring a smooth user journey even with errors or slow network.
 
+
+## 🖼 Screenshots
+1. Home Screen:  
+<img src="./src/assets/HomeScreen.jpeg" width="200">	
+
+2. Product Details:  
+<img src="./src/assets/DetailsScreen.jpeg" width="200">
+
+3. No Products Found:
+<img src="./src/assets/NoData.jpeg" width="200">
+
+4. Splash Screen:
+<img src="./src/assets/SplashScreen.jpeg" width="200">
+
+5. Skeleton Effect:
+<img src="./src/assets/SkeletonEffect.jpeg" width="200">
+
+
+
 ## 📂 Project Structure
 ```bash
 my-ai-product-advisor/
@@ -121,7 +140,7 @@ my-ai-product-advisor/
 └── utils/ # Helper functions
 └── promptBuilder.ts
 
-
+```bash
 
 🚀 Getting Started
 ### Installation
@@ -148,29 +167,10 @@ AI-powered recommendation engine
 Custom UI Components (ProductCard, ErrorCard, SkeletonLoader, etc.)
 
 
-
 🔮 Roadmap
 Voice-based product search 🎤
 Smarter AI suggestions 🤖
 Wishlist & Save for Later 💾
-
-
-## 🖼 Screenshots
-Home Screen:  
-<img src="./src/assets/HomeScreen.jpeg" alt="Screenshot" width="300" />
-
-Product Details:  
-![Product Details](./src/assets/DetailsScreen.jpeg)
-
-No Products Found:
-![No Prodcust Found](./src/assets/NoData.jpeg)
-
-Splash Screen:
-![Splash Screen](./src/assets/SplashScreen.jpeg)
-
-Skeleton Effect:
-![Skeleton Effect](./src/assets/SkeletonEffect.jpeg)
-
 
 
 👨‍💻 Author
