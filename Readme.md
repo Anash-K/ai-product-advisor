@@ -90,10 +90,10 @@ Followed a minimal, modern UI with proper error handling (NoDataCard), loading s
 ## 📂 Project Structure
 ```bash
 my-ai-product-advisor/
-1. │── App.tsx # Entry point of the app
+│── App.tsx # Entry point of the app
 │
-2. └── src/
-3. ├── api/ # API layer
+└── src/
+├── api/ # API layer
 │ └── apiClient.ts
 │
 ├── constants/ # App-wide constants
