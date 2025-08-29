@@ -1,7 +1,6 @@
 import axios from "axios";
 import { buildPrompt } from "../utils/promptBuilder";
 import { Product, Recommendation } from "../types";
-// import { GEMINI_API_KEY } from '@env';
 
 const API_ENDPOINT =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";

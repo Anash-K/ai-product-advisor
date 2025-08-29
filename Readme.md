@@ -14,7 +14,7 @@ Your intelligent shopping companion that understands natural language and recomm
 ## 🖼 Screenshots
 
 Home Screen:  
-![Home Screen](./src/assets/HomeScreen.jpeg)
+<img src="./src/assets/HomeScreen.jpeg" alt="Screenshot" width="300" />
 
 Product Details:  
 ![Product Details](./src/assets/DetailsScreen.jpeg)
