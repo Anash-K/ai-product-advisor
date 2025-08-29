@@ -89,6 +89,8 @@ Followed a minimal, modern UI with proper error handling (NoDataCard), loading s
 
 
 ## 🖼 Screenshots
+
+
 1. Home Screen:  
 <img src="./src/assets/HomeScreen.jpeg" width="200">	
 
@@ -104,7 +106,8 @@ Followed a minimal, modern UI with proper error handling (NoDataCard), loading s
 5. Skeleton Effect:
 <img src="./src/assets/SkeletonEffect.jpeg" width="200">
 
-
+6. Demo Video
+https://drive.google.com/file/d/1eljH4b4DuKdFS9hrGZ9OXPkDWytG8rM5/view?usp=sharing
 
 ## 📂 Project Structure
 ```bash
