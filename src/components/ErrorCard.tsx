@@ -28,10 +28,12 @@ const styles = StyleSheet.create({
   errorContainer: {
     alignItems: "center",
     justifyContent: "center",
-    padding: 40,
-    backgroundColor: Colors.white,
+    padding: 24,
+    backgroundColor: Colors.backgroundSecondary, 
     borderRadius: 16,
     marginTop: 20,
+    borderWidth: 1,
+    borderColor: Colors.border, 
   },
   errorText: {
     fontSize: 18,
@@ -39,10 +41,11 @@ const styles = StyleSheet.create({
     color: Colors.textPrimary,
     marginTop: 16,
     marginBottom: 8,
+    textAlign: "center",
   },
   errorSubText: {
     fontSize: 14,
-    color: Colors.textSecondary,
+    color: Colors.textSecondary, 
     textAlign: "center",
     marginBottom: 20,
   },
@@ -52,5 +55,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
   },
-  retryButtonText: { color: Colors.white, fontSize: 16, fontWeight: "600" },
+  retryButtonText: {
+    color: Colors.white,
+    fontSize: 16,
+    fontWeight: "600",
+  },
 });

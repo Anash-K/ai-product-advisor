@@ -20,10 +20,11 @@ export const ProductDetailScreen: React.FC<ScreenProps<"Details">> = ({
 
   return (
     <LinearGradient
-      colors={[Colors.background, Colors.secondary]}
+      colors={[Colors.background, Colors.background]}
       style={styles.container}
     >
       <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* Header */}
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.backButton}
@@ -35,37 +36,47 @@ export const ProductDetailScreen: React.FC<ScreenProps<"Details">> = ({
           <View style={{ width: 24 }} />
         </View>
 
+        {/* Card */}
         <View style={styles.card}>
           <Text style={styles.title}>{product.product_name}</Text>
+
           <View style={styles.priceBadge}>
             <Text style={styles.priceText}>
               ₹{product.price.toLocaleString()}
             </Text>
           </View>
 
+          {/* Brand */}
           <View style={styles.brandContainer}>
-            <Icon name="business" size={16} color={Colors.primary} />
+            <Icon name="business" size={16} color={Colors.textSecondary} />
             <Text style={styles.brand}>{product.brand}</Text>
           </View>
 
+          {/* Why This Product */}
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
-              <Icon name="lightbulb-outline" size={20} color={Colors.primary} />
+              <Icon name="lightbulb-outline" size={20} color="#FACC15" />
               <Text style={styles.sectionTitle}>Why This Product</Text>
             </View>
             <Text style={styles.sectionContent}>{product.why}</Text>
           </View>
 
+          {/* Description */}
           {product.description && (
             <View style={styles.section}>
               <View style={styles.sectionHeader}>
-                <Icon name="description" size={20} color={Colors.primary} />
+                <Icon
+                  name="description"
+                  size={20}
+                  color={Colors.textSecondary}
+                />
                 <Text style={styles.sectionTitle}>Description</Text>
               </View>
               <Text style={styles.sectionContent}>{product.description}</Text>
             </View>
           )}
 
+          {/* Actions */}
           <View style={styles.actionContainer}>
             <AnimatedButton
               title="Wishlist"
@@ -89,11 +100,9 @@ export const ProductDetailScreen: React.FC<ScreenProps<"Details">> = ({
 };
 
 const styles = StyleSheet.create({
-  rupeeIcon: {
-    marginTop: 2,
-  },
   container: { flex: 1 },
   scrollContent: { paddingBottom: 20 },
+
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -112,26 +121,31 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: Colors.textPrimary,
+    color: Colors.white,
   },
+
   card: {
-    backgroundColor: Colors.white,
+    backgroundColor: "#121212", // dark base
     marginHorizontal: 16,
     borderRadius: 16,
     padding: 24,
+    borderWidth: 1,
+    borderColor: "#2A2A2A",
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
     elevation: 5,
   },
+
   title: {
     fontSize: 26,
     fontWeight: "bold",
-    color: Colors.textPrimary,
+    color: Colors.white,
     textAlign: "center",
     marginBottom: 12,
   },
+
   priceBadge: {
     flexDirection: "row",
     alignItems: "center",
@@ -144,10 +158,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: Colors.primary,
   },
+
   brandContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.background,
+    backgroundColor: "#1E1E1E",
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 8,
@@ -156,13 +171,12 @@ const styles = StyleSheet.create({
   },
   brand: {
     fontSize: 14,
-    color: Colors.primary,
+    color: "#9CA3AF",
     fontWeight: "600",
     marginLeft: 6,
   },
-  section: {
-    marginBottom: 20,
-  },
+
+  section: { marginBottom: 20 },
   sectionHeader: {
     flexDirection: "row",
     alignItems: "center",
@@ -171,14 +185,15 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: "600",
-    color: Colors.textPrimary,
+    color: Colors.white,
     marginLeft: 8,
   },
   sectionContent: {
     fontSize: 14,
-    color: Colors.textSecondary,
+    color: "#D1D5DB",
     lineHeight: 20,
   },
+
   actionContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -187,7 +202,7 @@ const styles = StyleSheet.create({
   },
   wishlistButton: {
     flexDirection: "row-reverse",
-    backgroundColor: Colors.background,
+    backgroundColor: "#1E1E1E",
     paddingHorizontal: 16,
     paddingVertical: 10,
   },
@@ -199,8 +214,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     flex: 1,
-  },
-  buyButtonText: {
-    marginRight: 8,
   },
 });

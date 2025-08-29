@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, Animated, Easing } from "react-native";
 import React, { useEffect, useRef } from "react";
 import { Colors } from "../constants/Color";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { LinearGradient } from "expo-linear-gradient";
 
 const PlaceholderCard = () => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
@@ -11,15 +10,15 @@ const PlaceholderCard = () => {
     Animated.loop(
       Animated.sequence([
         Animated.timing(scaleAnim, {
-          toValue: 1.15,
-          duration: 1000,
-          easing: Easing.inOut(Easing.ease),
+          toValue: 1.3,
+          duration: 800,
+          easing: Easing.ease,
           useNativeDriver: true,
         }),
         Animated.timing(scaleAnim, {
           toValue: 1,
-          duration: 1000,
-          easing: Easing.inOut(Easing.ease),
+          duration: 800,
+          easing: Easing.ease,
           useNativeDriver: true,
         }),
       ])
@@ -27,10 +26,7 @@ const PlaceholderCard = () => {
   }, [scaleAnim]);
 
   return (
-    <LinearGradient
-      colors={[Colors.white, Colors.secondary]}
-      style={styles.gradientCard}
-    >
+    <View style={styles.card}>
       <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
         <Icon name="auto-awesome" size={70} color={Colors.primary} />
       </Animated.View>
@@ -40,37 +36,35 @@ const PlaceholderCard = () => {
       <Text style={styles.placeholderSubText}>
         Our AI will find the perfect products for you
       </Text>
-    </LinearGradient>
+    </View>
   );
 };
 
 export default PlaceholderCard;
 
 const styles = StyleSheet.create({
-  gradientCard: {
+  card: {
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 20,
     paddingVertical: 30,
-    borderRadius: 24,
+    borderRadius: 20,
     marginTop: 20,
-    shadowColor: Colors.black,
-    shadowOpacity: 0.15,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 6,
-    elevation: 6,
+    backgroundColor: Colors.backgroundSecondary, // dark gray
+    borderWidth: 1,
+    borderColor: Colors.border, // subtle border
   },
   placeholderText: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "700",
-    color: Colors.textPrimary,
+    color: Colors.textPrimary, // white
     marginTop: 16,
     marginBottom: 8,
     textAlign: "center",
   },
   placeholderSubText: {
-    fontSize: 16,
-    color: Colors.textSecondary,
+    fontSize: 15,
+    color: Colors.textSecondary, // muted gray
     textAlign: "center",
     lineHeight: 22,
   },

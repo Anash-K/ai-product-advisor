@@ -6,12 +6,11 @@ import {
   Animated,
   TouchableOpacity,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Recommendation } from "../types";
 import { Colors } from "../constants/Color";
 
-interface ProductCardProps {
+type ProductCardProps = {
   product: Recommendation;
   index: number;
   onShowDetails: (product: Recommendation) => void;
@@ -50,37 +49,36 @@ const ProductCard: React.FC<ProductCardProps> = ({
         },
       ]}
     >
-      <LinearGradient
-        colors={[Colors.primary, "#2575FC"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.cardHeader}
-      >
+      {/* Category Header */}
+      <View style={styles.cardHeader}>
         <Text style={styles.category}>{product.category.toUpperCase()}</Text>
-      </LinearGradient>
+      </View>
 
+      {/* Card Content */}
       <View style={styles.cardContent}>
         <Text style={styles.title}>{product.product_name}</Text>
+
         <View style={styles.brandPriceContainer}>
           <View style={styles.brandContainer}>
-            <Icon name="business" size={16} color={Colors.primary} />
+            <Icon name="business" size={16} color={Colors.mutedGray} />
             <Text style={styles.brand}>{product.brand}</Text>
           </View>
           <Text style={styles.price}>₹{product.price.toLocaleString()}</Text>
         </View>
 
         <View style={styles.whyContainer}>
-          <Icon name="lightbulb-outline" size={18} color="#FFA500" />
+          <Icon name="lightbulb-outline" size={18} color={Colors.accentYellow} />
           <Text style={styles.why}>{product.why}</Text>
         </View>
       </View>
 
+      {/* Action Button */}
       <TouchableOpacity
         style={styles.actionButton}
         onPress={() => onShowDetails(product)}
       >
         <Text style={styles.actionButtonText}>View Details</Text>
-        <Icon name="arrow-forward" size={16} color={Colors.white} />
+        <Icon name="arrow-forward" size={16} color={Colors.primary} />
       </TouchableOpacity>
     </Animated.View>
   );
@@ -88,19 +86,31 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.card,
     borderRadius: 16,
     marginBottom: 16,
     overflow: "hidden",
-    shadowColor: "#000",
+    borderWidth: 1,
+    borderColor: Colors.borderSecondary,
+    shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
   },
-  cardHeader: { paddingVertical: 8, paddingHorizontal: 16 },
-  category: { color: Colors.white, fontSize: 12, fontWeight: "600" },
-  cardContent: { padding: 16 },
+  cardHeader: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    backgroundColor: Colors.cardSecondary,
+  },
+  category: {
+    color: Colors.white,
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  cardContent: {
+    padding: 16,
+  },
   title: {
     fontSize: 18,
     fontWeight: "bold",
@@ -113,19 +123,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 16,
   },
-  brandContainer: { flexDirection: "row", alignItems: "center" },
+  brandContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   brand: {
     fontSize: 14,
-    color: Colors.primary,
-    fontWeight: "600",
+    color: Colors.mutedGray,
+    fontWeight: "500",
     marginLeft: 6,
   },
-  price: { fontSize: 18, fontWeight: "bold", color: Colors.primary },
-  whyContainer: { flexDirection: "row", alignItems: "flex-start" },
+  price: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: Colors.primary,
+  },
+  whyContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+  },
   why: {
     flex: 1,
     fontSize: 14,
-    color: Colors.textSecondary,
+    color: Colors.lightGray,
     marginLeft: 8,
     fontStyle: "italic",
     lineHeight: 20,
@@ -134,12 +154,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.cardSecondary,
+    borderTopWidth: 1,
+    borderTopColor: Colors.borderSecondary,
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
   actionButtonText: {
-    color: Colors.white,
+    color: Colors.primary,
     fontSize: 14,
     fontWeight: "600",
     marginRight: 8,

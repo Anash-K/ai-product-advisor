@@ -38,9 +38,9 @@ const CustomHeader = () => {
       ]}
     >
       <View style={styles.logoRow}>
-        <View style={styles.logoWrapper}>
+        {/* <View style={styles.logoWrapper}>
           <Image source={CustomImages.logo} style={styles.logo} />
-        </View>
+        </View> */}
         <Text style={styles.header}>AI Product Advisor</Text>
       </View>
       <Text style={styles.subHeader}>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 26,
     fontWeight: "700",
-    color: Colors.primary,
+    color: Colors.textPrimary,
     marginLeft: 10,
     letterSpacing: 0.5,
   },

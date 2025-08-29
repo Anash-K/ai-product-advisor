@@ -8,6 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   Animated,
+  Keyboard,
 } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { LinearGradient } from "expo-linear-gradient";
@@ -25,11 +26,13 @@ import CustomHeader from "../components/CustomHeader";
 import AnimatedButton from "../components/AnimatedButton";
 import PlaceholderCard from "../components/PlaceholderCard";
 import NoDataCard from "../components/NoDataCard";
+import Toast from "react-native-toast-message";
 
 export const HomeScreen: React.FC<ScreenProps<"Home">> = ({ navigation }) => {
   const [query, setQuery] = useState("");
   const [submittedQuery, setSubmittedQuery] = useState("");
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const [isFocused, setIsFocused] = useState(false);
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["recommendations", submittedQuery],
@@ -49,9 +52,24 @@ export const HomeScreen: React.FC<ScreenProps<"Home">> = ({ navigation }) => {
     }
   }, [data]);
 
+  // Error Toast
+  useEffect(() => {
+    if (isError) {
+      Toast.show({
+        type: "error",
+        text1: "Something went wrong",
+        text2: "Please check your connection and try again.",
+        position: "top",
+        visibilityTime: 3000,
+      });
+    }
+  }, [isError]);
+
   const onSearch = () => {
     const trimmedQuery = query.trim();
     if (trimmedQuery) setSubmittedQuery(trimmedQuery);
+    setIsFocused(false);
+    Keyboard.dismiss();
   };
 
   const handleDetails = useCallback(
@@ -86,17 +104,19 @@ export const HomeScreen: React.FC<ScreenProps<"Home">> = ({ navigation }) => {
   );
 
   return (
-    <LinearGradient
-      colors={[Colors.background, Colors.secondary]}
-      style={styles.container}
-    >
+    <View style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
         {/* Header */}
         <CustomHeader />
 
         {/* Search */}
         <View style={styles.searchContainer}>
-          <View style={styles.inputContainer}>
+          <View
+            style={[
+              styles.inputContainer,
+              isFocused && styles.focusInputContainer,
+            ]}
+          >
             <Icon
               name="search"
               size={24}
@@ -110,6 +130,8 @@ export const HomeScreen: React.FC<ScreenProps<"Home">> = ({ navigation }) => {
               value={query}
               onChangeText={setQuery}
               onSubmitEditing={onSearch}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
             />
             {query.length > 0 && (
               <TouchableOpacity onPress={() => setQuery("")}>
@@ -145,30 +167,28 @@ export const HomeScreen: React.FC<ScreenProps<"Home">> = ({ navigation }) => {
           <PlaceholderCard />
         ) : null}
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  focusInputContainer: { borderColor: Colors.primary, borderWidth: 2 },
+  container: { flex: 1, backgroundColor: Colors.background },
   safeArea: { flex: 1, paddingHorizontal: 16, paddingTop: 40 },
 
-  searchContainer: { marginBottom: 24 },
+  searchContainer: { marginBottom: 20 },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.white,
-    borderRadius: 16,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
+    backgroundColor: Colors.backgroundSecondary,
+    borderRadius: 25,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     marginBottom: 12,
-    shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 5,
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
-  searchIcon: { marginRight: 12 },
+  searchIcon: { marginRight: 8 },
   input: { flex: 1, fontSize: 16, color: Colors.textPrimary },
 
   searchButton: {
@@ -176,23 +196,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: Colors.primary,
-    paddingVertical: 16,
-    borderRadius: 16,
-    shadowColor: Colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 8,
+    paddingVertical: 14,
+    borderRadius: 12,
   },
   searchButtonDisabled: {
-    backgroundColor: Colors.disabled,
-    shadowColor: Colors.disabled,
+    backgroundColor: Colors.border,
   },
   searchButtonText: {
     color: Colors.white,
     fontSize: 16,
     fontWeight: "600",
-    marginRight: 8,
+    marginRight: 6,
   },
 
   listContainer: { paddingBottom: 20 },
