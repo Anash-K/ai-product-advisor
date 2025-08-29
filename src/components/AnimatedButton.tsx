@@ -71,10 +71,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Colors.primary, // X blue
+    backgroundColor: Colors.primary, 
     paddingVertical: 14,
     paddingHorizontal: 18,
-    borderRadius: 25, // pill-shaped like Twitter buttons
+    borderRadius: 25,
   },
   buttonDisabled: {
     backgroundColor: Colors.textSecondary,

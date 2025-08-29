@@ -34,10 +34,11 @@ export const HomeScreen: React.FC<ScreenProps<"Home">> = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const [isFocused, setIsFocused] = useState(false);
 
+  // Api Call
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["recommendations", submittedQuery],
     queryFn: () => fetchRecommendations(submittedQuery, productCatalog),
-    enabled: !!submittedQuery,
+    enabled: !!submittedQuery, // optimization for no initial call without query
   });
 
   // Animate product list when new data arrives
@@ -65,6 +66,7 @@ export const HomeScreen: React.FC<ScreenProps<"Home">> = ({ navigation }) => {
     }
   }, [isError]);
 
+  //handle on Search
   const onSearch = () => {
     const trimmedQuery = query.trim();
     if (trimmedQuery) setSubmittedQuery(trimmedQuery);
@@ -72,6 +74,7 @@ export const HomeScreen: React.FC<ScreenProps<"Home">> = ({ navigation }) => {
     Keyboard.dismiss();
   };
 
+  //handler for details View
   const handleDetails = useCallback(
     (product: Recommendation) => {
       navigation.navigate("Details", { product });
@@ -79,6 +82,7 @@ export const HomeScreen: React.FC<ScreenProps<"Home">> = ({ navigation }) => {
     [navigation]
   );
 
+  //Render Item For Products
   const renderItem = ({
     item,
     index,
