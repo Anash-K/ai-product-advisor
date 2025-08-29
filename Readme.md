@@ -22,10 +22,10 @@ Product Details:
 No Products Found:
 ![No Prodcust Found](./src/assets/NoData.jpeg)
 
-No Products Found:
+Splash Screen:
 ![Splash Screen](./src/assets/SplashScreen.jpeg)
 
-No Products Found:
+Skeleton Effect:
 ![Skeleton Effect](./src/assets/SkeletonEffect.jpeg)
 
 
