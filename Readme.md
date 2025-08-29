@@ -11,6 +11,24 @@ Your intelligent shopping companion that understands natural language and recomm
 | 📱 **Adaptive Design** | Optimized for mobile, tablet, and web with responsive layouts |
 | 💾 **Smart Caching** | React Query for efficient data caching and state management |
 
+## 🖼 Screenshots
+
+Home Screen:  
+![Home Screen](./src/assets/HomeScreen.jpeg)
+
+Product Details:  
+![Product Details](./src/assets/DetailsScreen.jpeg)
+
+No Products Found:
+![No Prodcust Found](./src/assets/NoData.jpeg)
+
+No Products Found:
+![Splash Screen](./src/assets/SplashScreen.jpeg)
+
+No Products Found:
+![Skeleton Effect](./src/assets/SkeletonEffect.jpeg)
+
+
 
 🛠️ Tech Stack
 React Native (Expo)
